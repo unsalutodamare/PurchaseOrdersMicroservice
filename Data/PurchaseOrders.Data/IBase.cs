@@ -8,7 +8,7 @@ namespace PurchaseOrders.Data
 {
     public interface IBase
     {
-        public int Id { get; set; }
+        int Id { get; set; }
 
         DateTimeOffset Created { get; set; }
         DateTimeOffset? LastUpdated { get; set; }
