@@ -32,7 +32,7 @@ namespace PurchaseOrdersWeb
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddDbContext<PurchaseOrdersDbContext>();
-            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 
             services.AddSwaggerGen(c =>
             {
