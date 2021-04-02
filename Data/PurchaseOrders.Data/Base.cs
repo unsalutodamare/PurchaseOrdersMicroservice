@@ -12,6 +12,7 @@ namespace PurchaseOrders.Data
         public int Id { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? LastUpdated { get; set; }
+        public DateTimeOffset? Deleted { get; set; }
 
         public static void OnModelCreating<TEntity>(ModelBuilder modelBuidler)
             where TEntity : class, IBase

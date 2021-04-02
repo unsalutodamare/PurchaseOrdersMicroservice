@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PurchaseOrders.Data;
+using PurchaseOrders.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,10 @@ namespace PurchaseOrdersWeb
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddDbContext<PurchaseOrdersDbContext>();
+            services.AddScoped<IClientService, ClientService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -10,7 +10,7 @@ using PurchaseOrders.Data;
 namespace PurchaseOrders.Data.Migrations
 {
     [DbContext(typeof(PurchaseOrdersDbContext))]
-    [Migration("20210402003122_Init")]
+    [Migration("20210402110825_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace PurchaseOrders.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("Deleted")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
@@ -69,6 +72,9 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<DateTimeOffset?>("Deleted")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTimeOffset?>("LastUpdated")
                         .HasColumnType("datetimeoffset");
 
@@ -79,6 +85,9 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<int>("Type")
                         .HasMaxLength(15)
                         .HasColumnType("int");
+
+                    b.Property<string>("UnitOfMeasure")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -104,8 +113,17 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTimeOffset?>("Deleted")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTimeOffset?>("LastUpdated")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int?>("PurchaseOrderItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
@@ -113,6 +131,8 @@ namespace PurchaseOrders.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("PurchaseOrderItemId");
 
                     b.ToTable("PurchaseOrder");
                 });
@@ -127,6 +147,9 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<DateTimeOffset?>("Deleted")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTimeOffset?>("LastUpdated")
                         .HasColumnType("datetimeoffset");
 
@@ -134,9 +157,6 @@ namespace PurchaseOrders.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PurchaseOrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -149,8 +169,6 @@ namespace PurchaseOrders.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("PurchaseOrderId");
-
                     b.ToTable("PurchaseOrderItem");
                 });
 
@@ -160,7 +178,13 @@ namespace PurchaseOrders.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ClientId");
 
+                    b.HasOne("PurchaseOrders.Data.PurchaseOrderItem", "PurchaseOrderItem")
+                        .WithMany()
+                        .HasForeignKey("PurchaseOrderItemId");
+
                     b.Navigation("Client");
+
+                    b.Navigation("PurchaseOrderItem");
                 });
 
             modelBuilder.Entity("PurchaseOrders.Data.PurchaseOrderItem", b =>
@@ -169,16 +193,7 @@ namespace PurchaseOrders.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("PurchaseOrders.Data.PurchaseOrder", null)
-                        .WithMany("PurchaseOrderItems")
-                        .HasForeignKey("PurchaseOrderId");
-
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("PurchaseOrders.Data.PurchaseOrder", b =>
-                {
-                    b.Navigation("PurchaseOrderItems");
                 });
 #pragma warning restore 612, 618
         }

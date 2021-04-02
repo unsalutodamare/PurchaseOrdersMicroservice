@@ -13,7 +13,7 @@ namespace PurchaseOrders.Data
     {
         public virtual string Name { get; set; }
         public virtual int Type { get; set; }
-        public enum UnitOfMeasure { Piece, Gr, Kg }
+        public virtual string UnitOfMeasure { get; set; }
 
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
