@@ -10,7 +10,7 @@ using PurchaseOrders.Data;
 namespace PurchaseOrders.Data.Migrations
 {
     [DbContext(typeof(PurchaseOrdersDbContext))]
-    [Migration("20210402001432_Init")]
+    [Migration("20210402003122_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,9 +104,6 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.Property<DateTimeOffset?>("LastUpdated")
                         .HasColumnType("datetimeoffset");
 
@@ -129,9 +126,6 @@ namespace PurchaseOrders.Data.Migrations
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("LastUpdated")
                         .HasColumnType("datetimeoffset");

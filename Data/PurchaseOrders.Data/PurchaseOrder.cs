@@ -10,7 +10,6 @@ namespace PurchaseOrders.Data
     [Table("PurchaseOrder")]
     public class PurchaseOrder : Base
     {
-        public virtual int ID { get; set; }
         public virtual DateTime DateCreated { get; set; }
         public virtual DateTime DateUpdated { get; set; }
         public virtual double Total { get; set; }
