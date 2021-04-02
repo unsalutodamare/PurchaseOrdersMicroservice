@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrders.Data
 {
-    [Table("Team")]
+    [Table("Client")]
     public class Client : Base
     {
         public virtual string Name { get; set; }
