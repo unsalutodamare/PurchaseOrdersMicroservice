@@ -12,5 +12,6 @@ namespace PurchaseOrders.Data
 
         DateTimeOffset Created { get; set; }
         DateTimeOffset? LastUpdated { get; set; }
+        DateTimeOffset? Deleted { get; set; }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchaseOrdersWeb", "Purcha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchaseOrders.Data", "Data\PurchaseOrders.Data\PurchaseOrders.Data.csproj", "{B3A542ED-9DE9-4EB6-9407-777F05250512}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchaseOrders.Services", "Services\PurchaseOrders.Services\PurchaseOrders.Services.csproj", "{59E663B4-542F-4FD6-8E9B-50776534C17D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B3A542ED-9DE9-4EB6-9407-777F05250512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3A542ED-9DE9-4EB6-9407-777F05250512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3A542ED-9DE9-4EB6-9407-777F05250512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E663B4-542F-4FD6-8E9B-50776534C17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E663B4-542F-4FD6-8E9B-50776534C17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E663B4-542F-4FD6-8E9B-50776534C17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E663B4-542F-4FD6-8E9B-50776534C17D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
