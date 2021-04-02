@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrders.Services
 {
-    public class ClientService : BaseService<Client>, IClientService
+    public interface IPurchaseOrderService : IBaseService<PurchaseOrder>
     {
-        public ClientService(PurchaseOrdersDbContext purchaseOrdersDbContext) : base(purchaseOrdersDbContext) { }
     }
 }

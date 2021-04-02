@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrdersWeb.Controllers
 {
-    [Route("api/client")]
-    public class ClientController : BaseController<Client>
+    [Route("api/purchaseorder")]
+    public class PurchaseOrderController : BaseController<PurchaseOrder>
     {
-       public ClientController(IClientService clientService) : base(clientService)
+        public PurchaseOrderController(IPurchaseOrderService purchaseOrderService) : base(purchaseOrderService)
         {
 
         }
