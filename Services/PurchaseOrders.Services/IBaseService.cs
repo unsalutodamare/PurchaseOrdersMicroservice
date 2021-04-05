@@ -14,6 +14,8 @@ namespace PurchaseOrders.Services
 
         Task<TEntity> ReadAsync(int id, bool tracking = true);
 
+        IQueryable<TEntity> GetAllAsync();
+
         Task<TEntity> UpdateAsync(int id, TEntity updateEntity);
 
         Task DeleteAsync(int id);

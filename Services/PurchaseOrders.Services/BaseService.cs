@@ -39,6 +39,12 @@ namespace PurchaseOrders.Services
             return await query.FirstOrDefaultAsync(entity => entity.Id == id && !entity.Deleted.HasValue);
         }
 
+        public IQueryable<TEntity> GetAllAsync()
+        {
+
+            return _purchaseOrdersDbContext.Set<TEntity>().AsNoTracking();
+        }
+
         public virtual async Task<TEntity> UpdateAsync(int id, TEntity updateEntity)
         {
             // Check that the record exists.
