@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,10 @@ namespace PurchaseOrders.Data
     [Table("Product")]
     public class Product : Base
     {
+        [Required]
         public virtual string Name { get; set; }
         public virtual int Type { get; set; }
-        public virtual string UnitOfMeasure { get; set; }
+        public virtual UnitOfMeasure UnitOfMeasure { get; set; }
 
         public static void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,5 +24,5 @@ namespace PurchaseOrders.Data
             modelBuilder.Entity<Product>().Property(property => property.Type).HasMaxLength(15);
         }
     }
-   
+
 }

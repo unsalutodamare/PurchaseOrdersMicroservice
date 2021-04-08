@@ -14,7 +14,7 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchStatusAsync(string keyword)
         {
-            return GetAllAsync().Where(p => p.Status.Contains(keyword)).ToList();
+            return GetAllAsync().Where(p => p.Status.Name.Contains(keyword)).ToList();
         }
 
         public List<PurchaseOrder> SearchTotalAsync(double min, double max)
@@ -34,7 +34,7 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchByProductAsync(string productName)
         {
-            return GetAllAsync().Where(p => p.PurchaseOrderItem.Product.Name.Contains(productName)).ToList();
+            return GetAllAsync().Where(p => p.PurchaseOrderItems.Any(p => p.Product.Name == productName)).ToList();
         }
     }
 }
