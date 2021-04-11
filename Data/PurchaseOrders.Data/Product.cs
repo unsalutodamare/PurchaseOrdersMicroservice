@@ -12,7 +12,7 @@ namespace PurchaseOrders.Data
     [Table("Product")]
     public class Product : Base
     {
-        [Required]
+        [Required(ErrorMessage = "Name is requried!")]
         public virtual string Name { get; set; }
         public virtual int Type { get; set; }
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }

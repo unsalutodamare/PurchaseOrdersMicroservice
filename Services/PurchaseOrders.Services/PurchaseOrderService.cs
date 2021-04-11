@@ -24,7 +24,7 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchBetweenDateAsync(DateTime dateFrom, DateTime dateTo)
         {
-            return GetAllAsync().Where(p => p.DateCreated >= dateFrom && p.DateCreated <= dateTo).ToList();
+            return GetAllAsync().Where(p => p.Created >= dateFrom && p.Created <= dateTo).ToList();
         }
 
         public List<PurchaseOrder> SearchByClientNameAsync(string name)

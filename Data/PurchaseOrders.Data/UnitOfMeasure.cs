@@ -11,7 +11,7 @@ namespace PurchaseOrders.Data
     [Table("UnitOfMeasure")]
     public class UnitOfMeasure : Base
     {
-        [Required]
+        [Required(ErrorMessage = "Name is requried!")]
         public virtual string Name { get; set; }
     }
 }

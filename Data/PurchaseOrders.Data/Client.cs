@@ -12,7 +12,7 @@ namespace PurchaseOrders.Data
     [Table("Client")]
     public class Client : Base
     {
-        [Required]
+        [Required(ErrorMessage = "Name is requried!")]
         public virtual string Name { get; set; }
         public virtual string Surname { get; set; }
         public virtual string Email { get; set; }

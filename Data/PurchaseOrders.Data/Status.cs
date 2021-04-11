@@ -11,7 +11,7 @@ namespace PurchaseOrders.Data
     [Table("Status")]
     public class Status : Base
     {
-        [Required]
+        [Required(ErrorMessage = "Name is requried!")]
         public virtual string Name { get; set; }
     }
 }
