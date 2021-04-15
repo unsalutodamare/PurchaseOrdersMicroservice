@@ -1,4 +1,5 @@
-﻿using PurchaseOrders.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PurchaseOrders.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace PurchaseOrders.Services
 {
     public class PurchaseOrderService : BaseService<PurchaseOrder>, IPurchaseOrderService
     {
-        public PurchaseOrderService(PurchaseOrdersDbContext purchaseOrdersDbContext) : base(purchaseOrdersDbContext) { }
+        public PurchaseOrderService(PurchaseOrdersDbContext purchaseOrdersDbContext) : base(purchaseOrdersDbContext) {
+            _purchaseOrdersDbContext = purchaseOrdersDbContext;
+        }
 
 
         public List<PurchaseOrder> SearchStatusAsync(string keyword)
@@ -24,8 +27,15 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchBetweenDateAsync(DateTime dateFrom, DateTime dateTo)
         {
+            //2021-04-13T00:00:00
             return GetAllAsync().Where(p => p.DateCreated >= dateFrom && p.DateCreated <= dateTo).ToList();
         }
+
+        public List<PurchaseOrder> SearchByMonthAsync(int month)
+        {
+             return GetAllWithIncludeAsync().Include(c => c.PurchaseOrderItem).ThenInclude(cs => cs.Product).Where(p => p.DateCreated.Month == month).ToList();           
+        }
+  
 
         public List<PurchaseOrder> SearchByClientNameAsync(string name)
         {

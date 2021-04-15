@@ -18,11 +18,15 @@ namespace PurchaseOrdersWeb.Controllers
     {
         protected readonly IBaseService<TEntity> _service;
         private readonly ILogger<TEntity> _logger;
+       
+
         protected BaseController([NotNull] IBaseService<TEntity> service, ILogger<TEntity> logger)
         {
             _service = service;
             _logger = logger;
         }
+
+     
 
         [HttpPost]
         public async Task<IActionResult> CreateAsync(TEntity entity)

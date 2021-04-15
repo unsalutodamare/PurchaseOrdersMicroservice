@@ -105,6 +105,30 @@ namespace PurchaseOrdersWeb.Controllers
                 _logger.LogError(ex, "|" + id + "|", ex.Message);
                 return BadRequest();
             }
+
+
+
+        }
+        [HttpGet("searchByMonthsOrders/{month}")]
+        public async Task<IActionResult> SearchByMonthsOrders(int month)
+        {
+            Guid id = Guid.NewGuid();
+            var result = _purchaseOrderService.SearchByMonthAsync(month);
+            try
+            {
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
         }
     }
-}
+
+
+
+     
+    }
+

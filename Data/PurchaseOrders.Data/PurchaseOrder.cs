@@ -17,5 +17,6 @@ namespace PurchaseOrders.Data
         public virtual PurchaseOrderItem PurchaseOrderItem { get; set; }
         public virtual Client Client { get; set; }
 
+
     }
 }

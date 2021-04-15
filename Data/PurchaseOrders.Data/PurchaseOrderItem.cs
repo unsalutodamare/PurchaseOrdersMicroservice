@@ -14,5 +14,6 @@ namespace PurchaseOrders.Data
         public virtual double Price { get; set; }
         public virtual double TotalPrice { get; set; }
         public virtual Product Product { get; set; }
+        
     }
 }

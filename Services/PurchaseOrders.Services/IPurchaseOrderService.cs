@@ -18,5 +18,9 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchByProductAsync(string productName);
 
+        public List<PurchaseOrder> SearchByMonthAsync(int month);
+
+     
+
     }
 }

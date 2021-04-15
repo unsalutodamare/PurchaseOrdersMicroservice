@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace PurchaseOrders.Services
         }
 
         public virtual async Task<TEntity> ReadAsync(int id, bool tracking = true)
-        {
+        {     
             var query = _purchaseOrdersDbContext.Set<TEntity>().AsQueryable();
 
             if (!tracking)
@@ -40,10 +41,17 @@ namespace PurchaseOrders.Services
         }
 
         public IQueryable<TEntity> GetAllAsync()
-        {
-
+        {            
             return _purchaseOrdersDbContext.Set<TEntity>().AsNoTracking();
         }
+
+        public IQueryable<TEntity> GetAllWithIncludeAsync()
+        {
+            return _purchaseOrdersDbContext.Set<TEntity>();
+        }
+
+
+      
 
         public virtual async Task<TEntity> UpdateAsync(int id, TEntity updateEntity)
         {
