@@ -44,6 +44,7 @@ namespace PurchaseOrders.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -77,6 +78,7 @@ namespace PurchaseOrders.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -84,10 +86,12 @@ namespace PurchaseOrders.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("int");
 
-                    b.Property<string>("UnitOfMeasure")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("UnitOfMeasureId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitOfMeasureId");
 
                     b.ToTable("Product");
                 });
@@ -117,11 +121,8 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<DateTimeOffset?>("LastUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("PurchaseOrderItemId")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
@@ -130,7 +131,7 @@ namespace PurchaseOrders.Data.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("PurchaseOrderItemId");
+                    b.HasIndex("StatusId");
 
                     b.ToTable("PurchaseOrder");
                 });
@@ -157,6 +158,9 @@ namespace PurchaseOrders.Data.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PurchaseOrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -167,7 +171,68 @@ namespace PurchaseOrders.Data.Migrations
 
                     b.HasIndex("ProductId");
 
+                    b.HasIndex("PurchaseOrderId");
+
                     b.ToTable("PurchaseOrderItem");
+                });
+
+            modelBuilder.Entity("PurchaseOrders.Data.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("Deleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("LastUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
+                });
+
+            modelBuilder.Entity("PurchaseOrders.Data.UnitOfMeasure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("Deleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("LastUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnitOfMeasure");
+                });
+
+            modelBuilder.Entity("PurchaseOrders.Data.Product", b =>
+                {
+                    b.HasOne("PurchaseOrders.Data.UnitOfMeasure", "UnitOfMeasure")
+                        .WithMany()
+                        .HasForeignKey("UnitOfMeasureId");
+
+                    b.Navigation("UnitOfMeasure");
                 });
 
             modelBuilder.Entity("PurchaseOrders.Data.PurchaseOrder", b =>
@@ -176,13 +241,13 @@ namespace PurchaseOrders.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ClientId");
 
-                    b.HasOne("PurchaseOrders.Data.PurchaseOrderItem", "PurchaseOrderItem")
+                    b.HasOne("PurchaseOrders.Data.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("PurchaseOrderItemId");
+                        .HasForeignKey("StatusId");
 
                     b.Navigation("Client");
 
-                    b.Navigation("PurchaseOrderItem");
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("PurchaseOrders.Data.PurchaseOrderItem", b =>
@@ -191,7 +256,16 @@ namespace PurchaseOrders.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
+                    b.HasOne("PurchaseOrders.Data.PurchaseOrder", null)
+                        .WithMany("PurchaseOrderItems")
+                        .HasForeignKey("PurchaseOrderId");
+
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PurchaseOrders.Data.PurchaseOrder", b =>
+                {
+                    b.Navigation("PurchaseOrderItems");
                 });
 #pragma warning restore 612, 618
         }

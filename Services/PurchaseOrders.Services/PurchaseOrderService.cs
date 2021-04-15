@@ -10,14 +10,12 @@ namespace PurchaseOrders.Services
 {
     public class PurchaseOrderService : BaseService<PurchaseOrder>, IPurchaseOrderService
     {
-        public PurchaseOrderService(PurchaseOrdersDbContext purchaseOrdersDbContext) : base(purchaseOrdersDbContext) {
-            _purchaseOrdersDbContext = purchaseOrdersDbContext;
-        }
+        public PurchaseOrderService(PurchaseOrdersDbContext purchaseOrdersDbContext) : base(purchaseOrdersDbContext) { }
 
 
         public List<PurchaseOrder> SearchStatusAsync(string keyword)
         {
-            return GetAllAsync().Where(p => p.Status.Contains(keyword)).ToList();
+            return GetAllAsync().Where(p => p.Status.Name.Contains(keyword)).ToList();
         }
 
         public List<PurchaseOrder> SearchTotalAsync(double min, double max)
@@ -27,8 +25,7 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchBetweenDateAsync(DateTime dateFrom, DateTime dateTo)
         {
-            //2021-04-13T00:00:00
-            return GetAllAsync().Where(p => p.DateCreated >= dateFrom && p.DateCreated <= dateTo).ToList();
+            return GetAllAsync().Where(p => p.Created >= dateFrom && p.Created <= dateTo).ToList();
         }
 
         public List<PurchaseOrder> SearchByMonthAsync(int month)
@@ -44,7 +41,7 @@ namespace PurchaseOrders.Services
 
         public List<PurchaseOrder> SearchByProductAsync(string productName)
         {
-            return GetAllAsync().Where(p => p.PurchaseOrderItem.Product.Name.Contains(productName)).ToList();
+            return GetAllAsync().Where(p => p.PurchaseOrderItems.Any(p => p.Product.Name == productName)).ToList();
         }
     }
 }
